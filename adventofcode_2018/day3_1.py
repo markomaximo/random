@@ -13,7 +13,6 @@ def load_claims():
         claims.append((x_start, y_start, x_end, y_end))
     return claims
 
-
 def make_claims_structure(claims):
     claims_map = defaultdict(lambda: defaultdict(int))
     for claim in claims:
@@ -25,7 +24,23 @@ def make_claims_structure(claims):
 def count_overlaps(claims_map):
     return sum([sum([1 for claim in col.values() if claim > 1]) for col in claims_map.values()])
 
-
 claims = load_claims()
 claims_map = make_claims_structure(claims)
 print(count_overlaps(claims_map))
+# First challange completed
+
+def find_non_overlap(claims, claims_map):
+    for i, claim in enumerate(claims):
+        not_it = False
+        for x in range(claim[0], claim[2]):
+            for y in range(claim[1], claim[3]):
+                if claims_map[x][y] > 1:
+                    not_it = True
+                    break
+            if not_it:
+                break
+        if not_it:
+            continue
+        return i + 1
+
+print(find_non_overlap(claims, claims_map))
