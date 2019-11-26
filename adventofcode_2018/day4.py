@@ -34,7 +34,7 @@ def make_sleepy_structure(sleepies):
 
     return guard_minute_sleepies
 
-def find_sleepiest_guard(guard_minute_sleepies):
+def find_sleepiest_guard_1(guard_minute_sleepies):
     sleepiest_guard = max(guard_minute_sleepies, key=lambda guard_id: sum(guard_minute_sleepies[guard_id].values()))
 
     sleepiest_guard_record = guard_minute_sleepies[sleepiest_guard]
@@ -45,6 +45,16 @@ def find_sleepiest_guard(guard_minute_sleepies):
 
 sleepies = load_sleepies()
 guard_minute_sleepies = make_sleepy_structure(sleepies)
-print(find_sleepiest_guard(guard_minute_sleepies))
+print(find_sleepiest_guard_1(guard_minute_sleepies))
 # COMPLETED PART 1
 
+def find_sleepiest_guard_2(guard_minute_sleepies):
+    sleepiest_guard = max(guard_minute_sleepies, key=lambda guard_id: max(guard_minute_sleepies[guard_id].values()))
+
+    sleepiest_guard_record = guard_minute_sleepies[sleepiest_guard]
+    sleepiest_minute = max(sleepiest_guard_record, key=lambda minute: sleepiest_guard_record[minute])
+
+    return int(sleepiest_guard[1:]) * sleepiest_minute
+
+print(find_sleepiest_guard_2(guard_minute_sleepies))
+# COMPLETED PART 2
