@@ -1,3 +1,5 @@
+import string
+
 def load_polymer():
     with open('polymer.txt') as data_file:
         polymer = data_file.readline()
@@ -33,3 +35,11 @@ reacted_polymer = react_polymer(polymer)
 print(len(reacted_polymer))
 # COMPLETED PART 1
 
+def remove_unit_type(polymer, type):
+    return [u for u in polymer if u.lower() != type.lower()]
+
+def find_blocking_unit(polymer):
+        return min([len(react_polymer(remove_unit_type(polymer, unit_type))) for unit_type in string.ascii_lowercase])
+
+print(find_blocking_unit(polymer))
+# COMPLETED PART 2
