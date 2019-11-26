@@ -68,3 +68,18 @@ coord_map = make_map(coords, min_max)
 print(get_largest_area(coord_map, min_max))
 # COMPLETED PART 1
 
+def get_summed_coord_distance(x, y, coords):
+    return sum([get_distance((x, y), coord) for coord in coords])
+
+def get_dense_region(max_sum_distance, coords, min_max):
+    min_x, max_x, min_y, max_y = min_max
+    region_size = 0
+    for x in range(min_x, max_x + 1):
+        for y in range(min_y, max_y + 1):
+            if get_summed_coord_distance(x, y, coords) < max_sum_distance:
+                region_size += 1
+    return region_size
+
+
+print(get_dense_region(10000, coords, min_max))
+# COMPLETED PART 2
