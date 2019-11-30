@@ -1,8 +1,9 @@
 from pprint import pprint
+from sys import stdin
 
-def load_license():
-    with open('license.txt') as data_file:
-        return data_file.readline().split()
+def load_license(filename):
+    with open(filename) as data_file:
+        return [int(c) for c in data_file.readline().split()]
 
 def parse_license(license, num_siblings):
     if num_siblings == 0:
@@ -10,7 +11,6 @@ def parse_license(license, num_siblings):
 
     num_children = license[0]
     num_meta = license[1]
-    print('num_chil: {}, num_meta: {}'.format(num_children, num_meta))
     total_offset = 2
 
     children, chil_offset = parse_license(license[total_offset:], num_children)
@@ -26,7 +26,11 @@ def parse_license(license, num_siblings):
             'children': children}
     return [node] + siblings, total_offset
 
+def add_meta(node):
+    return sum(node['meta']) + sum([add_meta(child) for child in node['children']])
 
-license = load_license()
-tree = parse_license(license, 1)
-pprint(tree)
+
+license = load_license('/Users/markus/Projects/random/adventofcode_2018/license.txt')
+tree, _ = parse_license(license, 1)
+print(add_meta(tree[0]))
+# COMPLETED PART 1
