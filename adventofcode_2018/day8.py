@@ -34,3 +34,19 @@ license = load_license('/Users/markus/Projects/random/adventofcode_2018/license.
 tree, _ = parse_license(license, 1)
 print(add_meta(tree[0]))
 # COMPLETED PART 1
+
+def get_value(node):
+    if not node['children']:
+        return sum(node['meta'])
+
+    cum_val = 0
+    for i in node['meta']:
+        index = i - 1
+        if index < 0 or index >= len(node['children']):
+            continue
+        cum_val += get_value(node['children'][index])
+    return cum_val
+
+
+print(get_value(tree[0]))
+# COMPLETED PART 2
