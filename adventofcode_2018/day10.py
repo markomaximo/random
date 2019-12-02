@@ -13,20 +13,6 @@ def load_input(filename):
     deltas = pd.DataFrame(deltas)
     return positions, deltas
 
-def get_entropy(positions):
-    neighbors = 0
-    print(positions.shape)
-    for i in range(positions.shape[0]):
-        for j in range(positions.shape[0]):
-            if j == i:
-                continue
-            diff = positions.iloc[i] - positions.iloc[j]
-            diff = abs(diff[0]) + abs(diff[1])
-            if diff < 2:
-                neighbors += 1
-                break
-    return neighbors
-
 def get_entropy2(positions):
     y_counts = Counter(positions.iloc[:, 1])
     return mean([c[1] for c in y_counts.most_common(3)])
